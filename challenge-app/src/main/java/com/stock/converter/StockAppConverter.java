@@ -11,4 +11,6 @@ public interface StockAppConverter {
     StockModel toStockModel(Stock entity);
     Stock toStockDomainByModel(StockModel model);
     ItemStock toItemStock(ItemStockRequest itemStockRequest);
+    StockModel toStockWithIdModel(Stock entity);
+    Stock toStockDomainByModelAfterUpdate(StockModel model);
 }

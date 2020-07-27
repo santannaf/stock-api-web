@@ -1,6 +1,5 @@
 package com.product.dataproviders.postgrees.model;
 
-import com.stock.dataproviders.postgrees.model.StockModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,8 +21,5 @@ public class ProductModel {
     private String name;
     private BigDecimal unitPrice;
     private int quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "idStock")
-    private StockModel stockModel;
+    private Integer idStock;
 }

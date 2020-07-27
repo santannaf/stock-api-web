@@ -1,4 +1,4 @@
-package com.product.entity;
+package com.stock.entity;
 
 import lombok.*;
 
@@ -9,11 +9,8 @@ import java.math.BigDecimal;
 @Builder
 @Data
 @With
-public class Product {
+public class ProductToUpdateStock {
     private int id;
-    private String name;
     private BigDecimal unitPrice;
-    @Builder.Default
-    private int quantity = 0;
-    private Integer idStock;
+    private String name;
 }

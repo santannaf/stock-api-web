@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,5 +31,23 @@ public class ProductDatabaseDataProvider implements ProductDataProvider {
         return this.productAppDataProviderRepository.findAll().stream()
                 .map(this.productAppConverter::toProductDomainByModel)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Product> findById(int id) {
+        return this.productAppDataProviderRepository.findById(id).map(this.productAppConverter::toProductDomainByModel);
+    }
+
+    @Override
+    public Optional<Product> put(Product stock) {
+        return this.productAppDataProviderRepository.findById(stock.getId()).map(productFound -> {
+            productFound.setQuantity(stock.getQuantity());
+            return this.productAppDataProviderRepository.save(productFound);
+        }).map(this.productAppConverter::toProductDomainByModel);
+    }
+
+    @Override
+    public void delete(int id) {
+        this.productAppDataProviderRepository.deleteById(id);
     }
 }

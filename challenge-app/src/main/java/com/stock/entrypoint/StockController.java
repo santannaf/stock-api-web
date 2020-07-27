@@ -46,7 +46,7 @@ public class StockController {
     ResponseEntity<?> update(@PathVariable int id,  @Valid @RequestBody ItemStockRequest request) {
         ItemStock itemStock = this.stockAppConverter.toItemStock(request);
         Stock stock = this.stockUseCase.update(itemStock.withIdStock(id));
-        return new ResponseEntity<>(stock, NO_CONTENT);
+        return new ResponseEntity<>(stock, OK);
     }
 
     @DeleteMapping(path = "{id}")

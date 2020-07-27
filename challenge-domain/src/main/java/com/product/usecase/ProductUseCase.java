@@ -1,7 +1,10 @@
 package com.product.usecase;
 
+import com.exceptions.StockResponseNotFoundException;
 import com.product.dataprovider.ProductDataProvider;
 import com.product.entity.Product;
+import com.stock.dataprovider.StockDataProvider;
+import com.stock.entity.ProductToUpdateStock;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,16 +12,23 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Named;
 import java.util.List;
 
+import static java.lang.String.format;
+
 @Named
 @RequiredArgsConstructor
 public class ProductUseCase {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final ProductDataProvider productDataProvider;
+    private final StockDataProvider stockDataProvider;
 
     public Product create(Product product) {
         log.info("Receive product to create - '{}'", product.getName());
-        Product factoryProduct = this.factoryProduct(product);
-        return this.productDataProvider.create(factoryProduct);
+        return this.stockDataProvider.findById(product.getIdStock()).map(result -> {
+            Product factoryProduct = this.factoryProduct(product);
+            return this.productDataProvider.create(factoryProduct);
+        }).orElseThrow(() -> {
+            throw new StockResponseNotFoundException(format("Stock not found to id '%s'", product.getIdStock()));
+        });
     }
 
     public List<Product> listAll() {
@@ -26,7 +36,14 @@ public class ProductUseCase {
         return this.productDataProvider.listAll();
     }
 
-    public Product factoryProductWithQuantity(Product product, int quantity) {
+    public Product update(Product product) {
+        log.info("Receive product to update - '{}'", product.getName());
+        return this.productDataProvider.put(product).orElseThrow(() -> {
+            throw new StockResponseNotFoundException(format("Product not found to id '%s'", product.getId()));
+        });
+    }
+
+    public Product factoryProductWithQuantity(ProductToUpdateStock product, int quantity) {
         return Product.builder()
                 .quantity(quantity)
                 .unitPrice(product.getUnitPrice())
@@ -39,6 +56,7 @@ public class ProductUseCase {
                 .name(product.getName())
                 .unitPrice(product.getUnitPrice())
                 .quantity(product.getQuantity())
+                .idStock(product.getIdStock())
                 .build();
     }
 }

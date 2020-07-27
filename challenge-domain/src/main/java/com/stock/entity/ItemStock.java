@@ -1,6 +1,5 @@
 package com.stock.entity;
 
-import com.product.entity.Product;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,7 +8,7 @@ import lombok.*;
 @Builder
 @With
 public class ItemStock {
-    private int idStock;
-    private Product product;
+    private int idProduct;
     private int quantity;
+    private int idStock;
 }

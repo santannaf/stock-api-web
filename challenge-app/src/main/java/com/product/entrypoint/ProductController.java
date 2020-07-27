@@ -27,7 +27,7 @@ public class ProductController {
         return new ResponseEntity<>(this.productUseCase.create(product), CREATED);
     }
 
-    @GetMapping
+    @GetMapping("all")
     ResponseEntity<?> listAll() {
         return new ResponseEntity<>(this.productUseCase.listAll(), OK);
     }

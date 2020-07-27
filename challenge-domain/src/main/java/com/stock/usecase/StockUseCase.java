@@ -1,11 +1,11 @@
 package com.stock.usecase;
 
+import com.exceptions.StockResponseNotFoundException;
 import com.product.entity.Product;
 import com.product.usecase.ProductUseCase;
 import com.stock.dataprovider.StockDataProvider;
 import com.stock.entity.ItemStock;
 import com.stock.entity.Stock;
-import com.stock.exceptions.StockResponseNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static java.lang.String.format;
 
 @Named
 @RequiredArgsConstructor
@@ -61,26 +63,25 @@ public class StockUseCase {
             newQuantity.getAndSet(itemStock.getQuantity());
 
             Optional<Product> product = products.stream()
-                    .filter(p -> p.getId() == itemStock.getProduct().getId())
+                    .filter(p -> p.getId() == itemStock.getIdProduct())
                     .findFirst();
 
             if (product.isEmpty()) {
-                Product prod = this.productUseCase.factoryProductWithQuantity(itemStock.getProduct(), itemStock.getQuantity());
-                products.add(this.productUseCase.create(prod));
-                var np = BigDecimal.valueOf(newQuantity.get()).multiply(itemStock.getProduct().getUnitPrice());
-                newPriceStock.getAndAccumulate(np, BigDecimal::add);
+                throw new StockResponseNotFoundException(format("Product with id '%s' not found",
+                                                                                            itemStock.getIdProduct()));
             } else {
                 var quantityAccumulated = newQuantity.accumulateAndGet(product.get().getQuantity(), Integer::sum);
-                var np = BigDecimal.valueOf(quantityAccumulated).multiply(itemStock.getProduct().getUnitPrice());
+                var np = BigDecimal.valueOf(quantityAccumulated).multiply(product.get().getUnitPrice());
                 newPriceStock.getAndAccumulate(np, BigDecimal::add);
                 Product productUpdated = Product.builder()
                         .id(product.get().getId())
                         .name(product.get().getName())
                         .unitPrice(product.get().getUnitPrice())
                         .quantity(quantityAccumulated)
+                        .idStock(itemStock.getIdStock())
                         .build();
                 products.remove(product.get());
-                products.add(this.productUseCase.create(productUpdated));
+                products.add(this.productUseCase.update(productUpdated));
             }
 
             return Stock.builder()

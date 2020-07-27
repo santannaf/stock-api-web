@@ -1,10 +1,7 @@
 package com.stock.dataproviders.postgrees.model;
 
 import com.product.dataproviders.postgrees.model.ProductModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,6 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "stock")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class StockModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +23,8 @@ public class StockModel {
     private BigDecimal priceStock;
     private String createdAt;
     private String updatedAt;
-    @OneToMany(mappedBy = "stockModel")
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idStock", referencedColumnName = "id")
     private List<ProductModel> products;
 }

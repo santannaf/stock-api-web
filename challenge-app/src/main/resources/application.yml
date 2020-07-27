@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: challenge-api
+  datasource:
+    hikari:
+      password: ${PASSWORD}
+      username: ${USERNAME}
+      driver-class-name: org.postgresql.Driver
+    url: ${URL_DATABASE}
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create
+    open-in-view: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
