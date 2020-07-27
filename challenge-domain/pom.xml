@@ -10,6 +10,7 @@
     </parent>
     <artifactId>challenge-domain</artifactId>
     <version>0.0.1</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- LOMBOK -->

@@ -11,7 +11,7 @@
 	<artifactId>challenge-api</artifactId>
 	<groupId>com</groupId>
 	<version>0.0.1</version>
-	<name>challenge-stock-web</name>
+	<name>challenge-api</name>
 	<description>API Control of the stock</description>
 	<packaging>pom</packaging>
 

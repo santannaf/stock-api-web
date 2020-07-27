@@ -4,8 +4,6 @@ import com.product.converter.ProductAppConverter;
 import com.product.dataproviders.postgrees.model.ProductModel;
 import com.product.entity.Product;
 import com.product.entrypoint.data.request.ProductRequest;
-import com.stock.entity.ProductToUpdateStock;
-import com.stock.entrypoint.data.request.ProductToUpdateStockRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,15 +53,6 @@ public class ProductAppConverterImpl implements ProductAppConverter {
                 .name(request.getName())
                 .quantity(request.getQuantity())
                 .idStock(request.getIdStock())
-                .build();
-    }
-
-    @Override
-    public ProductToUpdateStock toUpdateStockByProductDomain(ProductToUpdateStockRequest request) {
-        return ProductToUpdateStock.builder()
-                .id(request.getId())
-                .unitPrice(request.getUnitPrice())
-                .name(request.getName())
                 .build();
     }
 }
