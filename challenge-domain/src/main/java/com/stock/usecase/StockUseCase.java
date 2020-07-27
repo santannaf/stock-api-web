@@ -70,8 +70,8 @@ public class StockUseCase {
                 throw new StockResponseNotFoundException(format("Product with id '%s' not found",
                                                                                             itemStock.getIdProduct()));
             } else {
-                var quantityAccumulated = newQuantity.accumulateAndGet(product.get().getQuantity(), Integer::sum);
-                var np = BigDecimal.valueOf(quantityAccumulated).multiply(product.get().getUnitPrice());
+                int quantityAccumulated = newQuantity.accumulateAndGet(product.get().getQuantity(), Integer::sum);
+                BigDecimal np = BigDecimal.valueOf(quantityAccumulated).multiply(product.get().getUnitPrice());
                 newPriceStock.getAndAccumulate(np, BigDecimal::add);
                 Product productUpdated = Product.builder()
                         .id(product.get().getId())
