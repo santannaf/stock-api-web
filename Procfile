@@ -1,1 +1,1 @@
-web: java -jar challenge-app/target/challenge-app.jar
+web: java -jar $JAVA_OPTS -Dserver.port=$PORT challenge-app/target/challenge-app.jar
