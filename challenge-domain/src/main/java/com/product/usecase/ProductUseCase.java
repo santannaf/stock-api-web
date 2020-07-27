@@ -4,7 +4,6 @@ import com.exceptions.StockResponseNotFoundException;
 import com.product.dataprovider.ProductDataProvider;
 import com.product.entity.Product;
 import com.stock.dataprovider.StockDataProvider;
-import com.stock.entity.ProductToUpdateStock;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,7 @@ public class ProductUseCase {
         return this.stockDataProvider.findById(product.getIdStock()).map(result -> {
             Product factoryProduct = this.factoryProduct(product);
             return this.productDataProvider.create(factoryProduct);
-        }).orElseThrow(() -> {
+        }).<StockResponseNotFoundException>orElseThrow(() -> {
             throw new StockResponseNotFoundException(format("Stock not found to id '%s'", product.getIdStock()));
         });
     }
@@ -38,17 +37,9 @@ public class ProductUseCase {
 
     public Product update(Product product) {
         log.info("Receive product to update - '{}'", product.getName());
-        return this.productDataProvider.put(product).orElseThrow(() -> {
+        return this.productDataProvider.put(product).<StockResponseNotFoundException>orElseThrow(() -> {
             throw new StockResponseNotFoundException(format("Product not found to id '%s'", product.getId()));
         });
-    }
-
-    public Product factoryProductWithQuantity(ProductToUpdateStock product, int quantity) {
-        return Product.builder()
-                .quantity(quantity)
-                .unitPrice(product.getUnitPrice())
-                .name(product.getName())
-                .build();
     }
 
     private Product factoryProduct(Product product) {

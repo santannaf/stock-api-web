@@ -37,8 +37,9 @@ public class StockUseCase {
         log.info("Receive to find all stock");
         List<Stock> stocks = this.stockDataProvider.findAll();
 
-        if (stocks.isEmpty())
+        if (stocks.isEmpty()){
             throw new StockResponseNotFoundException("Don't exists stocks.");
+        }
 
         return stocks;
     }
@@ -47,7 +48,7 @@ public class StockUseCase {
         log.info("Receive search to find stock by id - '{}'", id);
         Optional<Stock> optionalStock = this.stockDataProvider.findById(id);
 
-        if (optionalStock.isEmpty())
+        if (!optionalStock.isPresent())
             throw new StockResponseNotFoundException("Resource not found");
 
         return optionalStock.get();
@@ -66,9 +67,8 @@ public class StockUseCase {
                     .filter(p -> p.getId() == itemStock.getIdProduct())
                     .findFirst();
 
-            if (product.isEmpty()) {
-                throw new StockResponseNotFoundException(format("Product with id '%s' not found",
-                                                                                            itemStock.getIdProduct()));
+            if (!product.isPresent()) {
+                throw new StockResponseNotFoundException(format("Product with id '%s' not found", itemStock.getIdProduct()));
             } else {
                 int quantityAccumulated = newQuantity.accumulateAndGet(product.get().getQuantity(), Integer::sum);
                 BigDecimal np = BigDecimal.valueOf(quantityAccumulated).multiply(product.get().getUnitPrice());
@@ -94,7 +94,7 @@ public class StockUseCase {
                     .updatedAt(Stock.generatingDateTime())
                     .build();
         }).flatMap(this.stockDataProvider::put)
-                .orElseThrow(() -> {
+                .<StockResponseNotFoundException>orElseThrow(() -> {
                     throw new StockResponseNotFoundException("Resource not found");
                 });
     }
