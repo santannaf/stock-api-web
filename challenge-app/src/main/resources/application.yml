@@ -7,13 +7,15 @@ spring:
     hikari:
       password: ${PASSWORD}
       username: ${USERNAME}
-      driver-class-name: org.postgresql.Driver
-    url: ${JDBC_DATASOURCE_URL}
+      max-lifetime: 45000
+      idle-timeout: 35000
+    url: ${URL_DATABASE}
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     generate-ddl: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     open-in-view: true
     properties:
       hibernate:
