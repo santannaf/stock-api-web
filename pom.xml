@@ -14,7 +14,6 @@
 	<name>challenge-api</name>
 	<description>API Control of the stock</description>
 	<packaging>pom</packaging>
-
 	<properties>
 		<java.version>11</java.version>
 		<java.version>11</java.version>
@@ -24,7 +23,6 @@
 		<springboot.version>2.3.2.RELEASE</springboot.version>
 		<lombok.version>1.18.12</lombok.version>
 	</properties>
-
 	<modules>
 		<module>challenge-app</module>
 		<module>challenge-domain</module>
