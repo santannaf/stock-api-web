@@ -98,7 +98,7 @@ public class StockAppConverterImpl implements StockAppConverter {
 
     private BigDecimal valueStock(List<ProductModel> products) {
         return products.stream().map(o -> {
-            var q = BigDecimal.valueOf(o.getQuantity());
+            BigDecimal q = BigDecimal.valueOf(o.getQuantity());
             return q.multiply(o.getUnitPrice());
         }).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
