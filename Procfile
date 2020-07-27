@@ -1,0 +1,1 @@
+web: java -jar challenge-app/target/challenge-app.jar
