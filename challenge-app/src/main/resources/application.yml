@@ -4,8 +4,11 @@ spring:
   application:
     name: challenge-api
   datasource:
+    hikari:
+      password: ${PASSWORD}
+      username: ${USERNAME}
+      driver-class-name: org.postgresql.Driver
     url: ${JDBC_DATASOURCE_URL}
-    driverClassName: org.postgresql.Driver
   jpa:
     show-sql: true
     generate-ddl: false
