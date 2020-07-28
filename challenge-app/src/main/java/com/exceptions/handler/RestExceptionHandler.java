@@ -1,7 +1,7 @@
 package com.exceptions.handler;
 
-import com.exceptions.StockResponseNotFoundException;
 import com.exceptions.model.ErrorDetails;
+import com.exceptions.stock.StockResponseNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

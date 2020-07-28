@@ -13,12 +13,17 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
-    generate-ddl: false
+    generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     open-in-view: true
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
+
 server:
   port: ${PORT}
+  compression:
+    enabled: true
+    mime-types: application/json
+    min-response-size: 1024

@@ -1,9 +1,7 @@
 package com.stock.entrypoint;
 
 import com.stock.converter.StockAppConverter;
-import com.stock.entity.ItemStock;
 import com.stock.entity.Stock;
-import com.stock.entrypoint.data.request.ItemStockRequest;
 import com.stock.entrypoint.data.request.StockRequest;
 import com.stock.usecase.StockUseCase;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +41,9 @@ public class StockController {
     }
 
     @PutMapping(path = "{id}")
-    ResponseEntity<?> update(@PathVariable int id,  @Valid @RequestBody ItemStockRequest request) {
-        ItemStock itemStock = this.stockAppConverter.toItemStock(request);
-        Stock stock = this.stockUseCase.update(itemStock.withIdStock(id));
-        return new ResponseEntity<>(stock, OK);
+    ResponseEntity<?> update(@PathVariable int id,  @Valid @RequestBody StockRequest request) {
+        Stock stock = this.stockAppConverter.toStockDomain(request);
+        return new ResponseEntity<>(this.stockUseCase.update(stock.withId(id)), OK);
     }
 
     @DeleteMapping(path = "{id}")

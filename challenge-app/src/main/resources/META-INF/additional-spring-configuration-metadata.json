@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "server.mime-types",
+      "type": "java.lang.String",
+      "description": "Description for server.mime-types."
+  }
+] }

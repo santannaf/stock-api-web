@@ -43,9 +43,7 @@ public class StockDatabaseDataProvider implements StockDataProvider {
     @Override
     public Optional<Stock> put(Stock stock) {
         return this.stockAppDataProviderRepository.findById(stock.getId()).map(stockFound -> {
-            stockFound.setId(stock.getId());
-            stockFound.setItems(stock.getItems());
-            stockFound.setPriceStock(stock.getPriceStock());
+            stockFound.setName(stock.getName());
             stockFound.setCreatedAt(stock.getCreatedAt());
             stockFound.setUpdatedAt(stock.getUpdatedAt());
             return this.stockAppDataProviderRepository.save(stockFound);

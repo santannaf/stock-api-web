@@ -19,7 +19,7 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private BigDecimal unitPrice;
-    private int quantity;
-    private Integer idStock;
+    private BigDecimal price;
+    private String createdAt;
+    private String updatedAt;
 }
