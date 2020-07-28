@@ -11,9 +11,10 @@ import java.util.List;
 @Repository
 public interface ProductStockAppDataProviderRepository extends JpaRepository<ProductStockModel, Integer> {
     @Query(value = "SELECT new com.productStock.dataproviders.postgrees.model.CustomProductStockModel(PS.stock.id, " +
-            "PS.product.id, PS.quantity) FROM ProductStockModel PS WHERE PS.stock.id = :idStock ")
+            "PS.stock.name, PS.product.name, PS.quantity, PS.product.price) FROM ProductStockModel PS " +
+            "WHERE PS.stock.id = :idStock ")
     List<CustomProductStockModel> listAllStocksWithProductsByIdStock(int idStock);
     @Query(value = "SELECT new com.productStock.dataproviders.postgrees.model.CustomProductStockModel(PS.stock.id, " +
-            "PS.product.id, PS.quantity) FROM ProductStockModel PS ")
+            "PS.stock.name, PS.product.name, PS.quantity, PS.product.price) FROM ProductStockModel PS ")
     List<CustomProductStockModel> listAllStocksWithProducts();
 }

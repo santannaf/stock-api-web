@@ -54,37 +54,4 @@ public class ProductAppConverterImpl implements ProductAppConverter {
         return LocalDateTime.now(ZoneId.of(AMERICA_SAO_PAULO))
                 .format(DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM_SS));
     }
-
-//    @Override
-//    public ProductStockModel toProductModel(Product entity) {
-//        return ProductStockModel.builder()
-////                .name(entity.getName())
-////                .unitPrice(entity.getUnitPrice())
-//                .quantity(entity.getQuantity())
-//                .idStock(entity.getIdStock())
-//                .build();
-//    }
-//
-//    @Override
-//    public ProductStockModel toProductModelWithId(ProductStock entity) {
-//        return ProductStockModel.builder()
-////                .idProduct(entity.getIdProduct())
-//                .quantity(entity.getQuantity())
-//                .idStock(entity.getIdStock())
-//                .build();
-//    }
-//
-//
-//
-
-//
-//    @Override
-//    public Product toProductDomain(ProductRequest request) {
-//        return Product.builder()
-//                .unitPrice(request.getPrice())
-//                .name(request.getName())
-//                .quantity(request.getQuantity())
-//                .idStock(request.getIdStock())
-//                .build();
-//    }
 }

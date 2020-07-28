@@ -27,7 +27,7 @@ public class ProductStockController {
         return new ResponseEntity<>(this.productStokeUseCase.insertProductAtStock(productStock), CREATED);
     }
 
-    @PostMapping("load/{idProduct}")
+    @PostMapping("load/with/{idProduct}/product")
     ResponseEntity<?> loadStocksWithProduct(@PathVariable int idProduct) {
         return new ResponseEntity<>(this.productStokeUseCase.loadStockWithProduct(idProduct), CREATED);
     }
@@ -40,5 +40,10 @@ public class ProductStockController {
     @GetMapping(path = "list/customs")
     ResponseEntity<?> listAllProductsIntoStocksCustom() {
         return new ResponseEntity<>(this.productStokeUseCase.listAllProductsInTheStocksCustom(), OK);
+    }
+
+    @GetMapping(path = "list/custom/{idStock}")
+    ResponseEntity<?> listProductsIntoStockCustomByIdStock(@PathVariable int idStock) {
+        return new ResponseEntity<>(this.productStokeUseCase.listProductsInTheStockCustomByIdStock(idStock), OK);
     }
 }

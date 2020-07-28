@@ -2,6 +2,8 @@ package com.productStock.dataproviders.postgrees.model;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -9,6 +11,8 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CustomProductStockModel {
     private int idStock;
-    private int idProduct;
+    private String nameStock;
+    private String nameProduct;
     private int quantity;
+    private BigDecimal price;
 }

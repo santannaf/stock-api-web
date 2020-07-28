@@ -26,4 +26,6 @@ public class ProductStockModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "idStock")
     private StockModel stock;
+    private String createdAt;
+    private String updatedAt;
 }

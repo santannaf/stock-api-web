@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductStockAppConverterImpl implements ProductStockAppConverter {
@@ -35,6 +38,8 @@ public class ProductStockAppConverterImpl implements ProductStockAppConverter {
                 .quantity(entity.getQuantity())
                 .product(this.productAppConverter.toProductModelWithId(entity.getProduct()))
                 .stock(this.stockAppConverter.toStockModelWithId(entity.getStock()))
+                .createdAt(this.productAppConverter.now())
+                .updatedAt(this.productAppConverter.now())
                 .build();
     }
 
@@ -45,15 +50,22 @@ public class ProductStockAppConverterImpl implements ProductStockAppConverter {
                 .quantity(model.getQuantity())
                 .product(this.productAppConverter.toProductDomainByModel(model.getProduct()))
                 .stock(this.stockAppConverter.toStockDomainByModel(model.getStock()))
+                .createdAt(this.productAppConverter.now())
+                .updatedAt(this.productAppConverter.now())
                 .build();
     }
 
     @Override
     public CustomProductStock toCustomProductStock(CustomProductStockModel customProductStockModel) {
         return CustomProductStock.builder()
-                .idProduct(customProductStockModel.getIdProduct())
                 .idStock(customProductStockModel.getIdStock())
+                .nameProduct(customProductStockModel.getNameProduct())
+                .nameStock(customProductStockModel.getNameStock())
+                .price(customProductStockModel.getPrice())
                 .quantity(customProductStockModel.getQuantity())
+                .amount(customProductStockModel.getPrice()
+                        .multiply(BigDecimal.valueOf(customProductStockModel.getQuantity()))
+                        .setScale(2, RoundingMode.DOWN))
                 .build();
     }
 }

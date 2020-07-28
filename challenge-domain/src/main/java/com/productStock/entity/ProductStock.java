@@ -17,6 +17,8 @@ public class ProductStock {
     private int quantity = 0;
     private Stock stock;
     private Product product;
+    private String createdAt;
+    private String updatedAt;
 
     public static ProductStock factory(Stock stock, Product product) {
         return ProductStock.builder()

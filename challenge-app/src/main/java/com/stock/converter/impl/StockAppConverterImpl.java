@@ -57,24 +57,4 @@ public class StockAppConverterImpl implements StockAppConverter {
                 .updatedAt(model.getUpdatedAt())
                 .build();
     }
-
-//    @Override
-//    public ItemStock toItemStock(ItemStockRequest itemStockRequest) {
-//        return ItemStock.builder()
-//                .quantity(itemStockRequest.getQuantity())
-//                .idProduct(itemStockRequest.getIdProduct())
-//                .build();
-//    }
-
-//    private int itemsIntoStock(List<ProductStockModel> products) {
-//        return products.stream().map(ProductStockModel::getQuantity).reduce(0, Integer::sum);
-//    }
-//
-//    private BigDecimal valueStock(List<ProductStockModel> products) {
-//        return products.stream().map(o -> {
-//            BigDecimal q = BigDecimal.valueOf(o.getQuantity());
-////            return q.multiply(o.getUnitPrice());
-//            return BigDecimal.ZERO;
-//        }).reduce(BigDecimal.ZERO, BigDecimal::add);
-//    }
 }

@@ -4,7 +4,6 @@ import com.product.converter.ProductAppConverter;
 import com.product.dataprovider.ProductDataProvider;
 import com.product.dataproviders.postgrees.model.ProductModel;
 import com.product.dataproviders.postgrees.repository.ProductAppDataProviderRepository;
-import com.productStock.dataproviders.postgrees.repository.ProductStockAppDataProviderRepository;
 import com.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductDatabaseDataProvider implements ProductDataProvider {
     private final ProductAppConverter productAppConverter;
-    private final ProductStockAppDataProviderRepository productStockAppDataProviderRepository;
     private final ProductAppDataProviderRepository productAppDataProviderRepository;
 
     @Override
@@ -54,20 +52,4 @@ public class ProductDatabaseDataProvider implements ProductDataProvider {
     public void delete(int id) {
         this.productAppDataProviderRepository.deleteById(id);
     }
-
-
-//    @Override
-//    public Product create(Product product) {
-//        ProductStockModel productStockModel = this.productAppConverter.toProductModel(product);
-//        ProductStockModel productSaved = this.productStockAppDataProviderRepository.save(productStockModel);
-//        return this.productAppConverter.toProductDomainByModel(productSaved);
-//    }
-
-//    @Override
-//    public Optional<Product> put(Product stock) {
-//        return this.productStockAppDataProviderRepository.findById(stock.getId()).map(productFound -> {
-//            productFound.setQuantity(stock.getQuantity());
-//            return this.productStockAppDataProviderRepository.save(productFound);
-//        }).map(this.productAppConverter::toProductDomainByModel);
-//    }
 }

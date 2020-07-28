@@ -1,12 +1,13 @@
-package com.stock.entity;
+package com.stock.usecase;
 
-import com.stock.dataprovider.CriticismCoverageDataProvider;
+import lombok.RequiredArgsConstructor;
 
 import javax.inject.Named;
 
 @Named
-public class CriticismCoverage implements CriticismCoverageDataProvider {
-    @Override
+@RequiredArgsConstructor
+public class CriticismCoverageUseCase {
+
     public String calculateCoverage(int consumer, int quantity) {
         if (quantity <= consumer * 10) {
             return "Perigo - Estoque com capacidade menor que 10 dias";

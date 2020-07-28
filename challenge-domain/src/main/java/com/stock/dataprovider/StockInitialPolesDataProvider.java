@@ -2,6 +2,6 @@ package com.stock.dataprovider;
 
 import java.util.List;
 
-public interface StockInitialDataProvider {
+public interface StockInitialPolesDataProvider {
     List<String> getPoles();
 }

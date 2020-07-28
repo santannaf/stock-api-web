@@ -5,7 +5,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.String.format;
 
@@ -22,14 +21,6 @@ public class Stock {
     @Builder.Default
     private String updatedAt = generatingDateTime();
 
-//    @Builder.Default
-//    private int items = 0;
-//    @Builder.Default
-//    private BigDecimal priceStock = BigDecimal.ZERO;
-//    @Builder.Default
-//    private List<Product> products = Collections.emptyList();
-//    private String classification;
-
     public static String generatingDateTime() {
         String AMERICA_SAO_PAULO = "America/Sao_Paulo";
         String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
@@ -44,10 +35,6 @@ public class Stock {
                 .createdAt(stock.getCreatedAt())
                 .updatedAt(stock.getUpdatedAt())
                 .build();
-    }
-
-    public static Integer stockConsumer() {
-        return ThreadLocalRandom.current().nextInt(1, 44);
     }
 
     public static Stock factoryStockInitialOnlyName(String name) {
