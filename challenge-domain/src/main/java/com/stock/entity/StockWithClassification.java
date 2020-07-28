@@ -14,5 +14,5 @@ public class StockWithClassification {
     private String name;
     private int items;
     private BigDecimal valueStock;
-    private String classification;
+    private ClassificationStock classification;
 }

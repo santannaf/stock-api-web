@@ -6,6 +6,7 @@ import com.product.usecase.ProductUseCase;
 import com.productStock.dataprovider.ProductStockDataProvider;
 import com.productStock.entity.CustomProductStock;
 import com.productStock.entity.ProductStock;
+import com.stock.entity.ClassificationStock;
 import com.stock.entity.Stock;
 import com.stock.entity.StockWithClassification;
 import com.stock.usecase.CriticismCoverageUseCase;
@@ -76,13 +77,15 @@ public class ProductStokeUseCase {
         BigDecimal totalAmount = this.totalAmountIntoStock(customProductStocks, stock.getName());
         int totalQuantity = this.totalQuantityIntoStock(customProductStocks, stock.getName());
         int stockConsumerDynamic = this.stockUseCase.stockConsumer();
+        Map<Integer, String> rule =
+                this.criticismCoverageUseCase.calculateCoverage(stockConsumerDynamic, totalQuantity);
 
         return StockWithClassification.builder()
                 .id(stock.getId())
                 .name(stock.getName())
                 .items(totalQuantity)
                 .valueStock(totalAmount)
-                .classification(this.criticismCoverageUseCase.calculateCoverage(stockConsumerDynamic, totalQuantity))
+                .classification(ClassificationStock.factory(rule))
                 .build();
     }
 
@@ -99,12 +102,13 @@ public class ProductStokeUseCase {
             BigDecimal totalAmount = this.totalAmountIntoStock(customProductStocks, v);
             int totalQuantity = this.totalQuantityIntoStock(customProductStocks, v);
             int stockConsumerDynamic = this.stockUseCase.stockConsumer();
+            Map<Integer, String> rule = this.criticismCoverageUseCase.calculateCoverage(stockConsumerDynamic, totalQuantity);
             stocksWithClassifications.add(StockWithClassification.builder()
                     .id(k)
                     .name(v)
                     .items(totalQuantity)
                     .valueStock(totalAmount)
-                    .classification(this.criticismCoverageUseCase.calculateCoverage(stockConsumerDynamic, totalQuantity))
+                    .classification(ClassificationStock.factory(rule))
                     .build());
         });
         return stocksWithClassifications;

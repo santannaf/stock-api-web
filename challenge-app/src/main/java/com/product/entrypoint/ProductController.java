@@ -17,6 +17,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/product")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@CrossOrigin("*")
 public class ProductController {
     private final ProductUseCase productUseCase;
     private final ProductAppConverter productAppConverter;

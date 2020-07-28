@@ -17,6 +17,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/product/stock")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@CrossOrigin("*")
 public class ProductStockController {
     private final ProductStokeUseCase productStokeUseCase;
     private final ProductStockAppConverter productStockAppConverter;
