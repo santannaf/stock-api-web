@@ -1,7 +1,6 @@
 package com.stock.entity;
 
 import lombok.*;
-
 import java.util.Map;
 
 @AllArgsConstructor
