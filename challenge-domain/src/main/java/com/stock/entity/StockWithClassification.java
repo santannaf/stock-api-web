@@ -15,4 +15,5 @@ public class StockWithClassification {
     private int items;
     private BigDecimal valueStock;
     private ClassificationStock classification;
+    private int rateConsumer;
 }

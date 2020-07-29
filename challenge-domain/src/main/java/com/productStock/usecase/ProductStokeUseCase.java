@@ -86,6 +86,7 @@ public class ProductStokeUseCase {
                 .items(totalQuantity)
                 .valueStock(totalAmount)
                 .classification(ClassificationStock.factory(rule))
+                .rateConsumer(stockConsumerDynamic)
                 .build();
     }
 
@@ -103,12 +104,10 @@ public class ProductStokeUseCase {
             int totalQuantity = this.totalQuantityIntoStock(customProductStocks, v);
             int stockConsumerDynamic = this.stockUseCase.stockConsumer();
             Map<Integer, String> rule = this.criticismCoverageUseCase.calculateCoverage(stockConsumerDynamic, totalQuantity);
-            stocksWithClassifications.add(StockWithClassification.builder()
-                    .id(k)
-                    .name(v)
-                    .items(totalQuantity)
+            stocksWithClassifications.add(StockWithClassification.builder().id(k).name(v).items(totalQuantity)
                     .valueStock(totalAmount)
                     .classification(ClassificationStock.factory(rule))
+                    .rateConsumer(stockConsumerDynamic)
                     .build());
         });
         return stocksWithClassifications;
