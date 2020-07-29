@@ -19,7 +19,7 @@ import static java.lang.String.format;
 @Named
 @RequiredArgsConstructor
 public class StockUseCase {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final Logger log = LoggerFactory.getLogger(StockUseCase.class);
     private final StockDataProvider stockDataProvider;
     private final StockInitialPolesDataProvider stockInitialPolesDataProvider;
 

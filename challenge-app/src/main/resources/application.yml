@@ -21,6 +21,25 @@ spring:
       hibernate:
         enable_lazy_load_no_trans: true
 
+management:
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    web:
+      client:
+        max-uri-tags: 950
+      server:
+        max-uri-tags: 950
+  endpoints:
+    web:
+      exposure:
+        include: metrics, health
 server:
   port: ${PORT}
   compression:
